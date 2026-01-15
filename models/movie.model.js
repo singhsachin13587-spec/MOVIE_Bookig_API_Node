@@ -1,45 +1,100 @@
+// const mongoose = require('mongoose'); 
+
+// /**
+//  * Define the schema of the movie resource to be stored in the db
+//  */
+// const movieSchema = new mongoose.Schema({
+//     name: {
+//         type: String,
+//         required: true,
+//         minLength: 2
+//     },
+//     description: {
+//         type: String,
+//         required: true,
+//         minLength: 5
+//     },
+//     casts: {
+//         type: [String],
+//         required: true
+//     },
+//     trailerUrl: {
+//         type: String,
+//         required: true
+//     },
+//     language: {
+//         type: String,
+//         required: true,
+//         default: "English"
+//     },
+//     releaseDate: {
+//         type: String,
+//         required: true
+//     },
+//     director: {
+//         type: String,
+//         required: true
+//     },
+//     releaseStatus: {
+//         type: String,
+//         required: true,
+//         default: "RELEASED",
+//     },
+//     poster: {
+//         type: String,
+//         required: true,
+//     }
+// }, {timestamps: true});
+
+// const Movie = mongoose.model('Movie', movieSchema); // creates a new model
+
+// module.exports = Movie; // returning the model 
+
+
+
+
 const mongoose = require('mongoose');
 
-// Define the schema for the movie resources to be stored in the db
-
 const movieSchema = new mongoose.Schema({
-   name: {
-      type: String,
-      require: true
-   },
-   description: {
-      type: String,
-      require: true
-   },
-   casts: {
-      type: [String],
-      require: true
-   },
-   trailerUrl: {
-      type: String,
-      require: true
-   },
-   language: {
-      type: [String],
-      require: true,
-      default: "English"
-   },
-   releaseDate: {
-      type: String,
-      require: true
-   },
-   director:{
-      type: String,
-      require: true
-   },
-   releaseStatus: {
-      type: String,
-      require: true,
-      default: "RELEASED"
-   },
-}, {timestamps: true});
+  name: {
+    type: String,
+    required: true,
+    minlength: 2
+  },
+  description: {
+    type: String,
+    required: true,
+    minlength: 5
+  },
+  casts: {
+    type: [String],
+    required: true
+  },
+  director: {
+    type: String,
+    required: true
+  },
+  trailerUrl: {
+    type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    default: "English"
+  },
+  releaseDate: {
+    type: String,
+    required: true
+  },
+  releaseStatus: {
+    type: String,
+    enum: ["RELEASED", "UNRELEASED"],
+    default: "RELEASED"
+  },
+  poster: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true });
 
-
-const Movie = mongoose.model('Movie', movieSchema); //create a new model
-
-module.exports = Movie;  // returnig the movie
+module.exports = mongoose.model('Movie', movieSchema);
