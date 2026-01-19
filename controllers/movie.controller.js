@@ -1,26 +1,14 @@
 const Movie = require("../models/movie.model");
 const movieService = require('../services/movie.service');
+const {successResponseBody, errorResponseBody} =require('../utils/responsebody')
 
-const errorResponseBody = {
-  err: {},
-  data: {},
-  message: "Something went wrong, cannot process the data",
-  success: false
-};
-
-const successResponseBody = {
-  err: {},
-  data: {},
-  message: "Successfully fetch the movie details",
-  success: true
-};
 
 const createMovie = async (req, res) => {
   try {
     console.log("HEADERS 👉", req.headers);
     console.log("BODY 👉", req.body);
 
-    const movie = await Movie.create(req.body);
+    const movie = await movieService.createMovie(req.body);
 
     return res.status(201).json({
       success: true,
@@ -32,18 +20,16 @@ const createMovie = async (req, res) => {
   } catch (err) {
     console.error("CREATE MOVIE ERROR 👉", err.message);
 
-    return res.status(500).json({
-      success: false,
-      error: err.message,
-      data: {},
-      message: "Something went wrong"
-    });
+    return res.status(500).json(errorResponseBody);
   }
 };
 
+
+
+
 const deleteMovie = async (req, res) => {
   try {
-    const response = await Movie.deleteOne({
+    const response = await movieService.deleteMovie({
       _id: req.params.Id  
     });
 
@@ -57,14 +43,13 @@ const deleteMovie = async (req, res) => {
   } catch (err) {
     console.error("DELETE MOVIE ERROR 👉", err.message);
 
-    return res.status(500).json({
-      success: false,
-      error: err.message,
-      data: {},
-      message: "Something went wrong"
-    });
+    return res.status(500).json(errorResponseBody);
   }
 };
+
+
+
+
 
 const getMovies = async (req, res) => {
   try {
