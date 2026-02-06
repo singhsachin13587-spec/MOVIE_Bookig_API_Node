@@ -10,13 +10,18 @@ const routes = (app) => {
   );
 
   app.delete(
-    '/mba/api/v1/movies/:Id',
+    '/mba/api/v1/movies/:id',   // ✅ lowercase id
     MovieController.deleteMovie
   );
 
   app.get(
-    '/mba/api/v1/movies/:Id',
+    '/mba/api/v1/movies/:id',   // ✅ lowercase id
     MovieController.getMovies
+  );
+
+  app.put(
+    '/mba/api/v1/movies/:id',   // ✅ lowercase id
+    MovieController.updateMovie // ✅ FIXED
   );
 };
 
